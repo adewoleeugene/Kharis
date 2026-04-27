@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Fraunces } from "next/font/google";
+import { Geist } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
@@ -10,11 +11,12 @@ const geistSans = Geist({
   display: "swap",
 });
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
+const mvSans = localFont({
+  src: "./fonts/MVSansBold.ttf",
+  variable: "--font-mvsans",
   display: "swap",
-  axes: ["SOFT", "opsz"],
+  weight: "700",
+  style: "normal",
 });
 
 export const metadata: Metadata = {
@@ -33,7 +35,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${fraunces.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
+      className={`${geistSans.variable} ${mvSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-parchment-50 text-ink">
         <SiteHeader />

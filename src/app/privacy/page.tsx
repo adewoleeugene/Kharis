@@ -48,6 +48,7 @@ export default function PrivacyPage() {
   return (
     <>
       <PageHeader
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Privacy" }]}
         eyebrow="Privacy notice"
         title="Your data. Our duty of care."
         intro={`Last updated ${new Date().toLocaleDateString("en-GB", {

@@ -13,6 +13,11 @@ export default function GiftAidPage() {
   return (
     <>
       <PageHeader
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Give", href: "/give" },
+          { label: "Gift Aid" },
+        ]}
         eyebrow="UK taxpayers"
         title="Add 25p to every £1 you give — at no cost."
         intro="If you pay UK income or capital gains tax, Gift Aid lets us reclaim an extra 25% on your donation from HMRC. One declaration covers every future gift you make to Kharis."

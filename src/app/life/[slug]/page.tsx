@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/ui/page-header";
-import { lifeSections, getLifeSection } from "@/lib/life";
+import { lifeSections, getLifeSection, getJourneyIndex } from "@/lib/life";
 
 export function generateStaticParams() {
   return lifeSections.map((s) => ({ slug: s.slug }));
@@ -34,11 +34,26 @@ export default async function LifePage({
   const section = getLifeSection(slug);
   if (!section) notFound();
 
-  const related = lifeSections.filter((s) => s.slug !== slug).slice(0, 4);
+  const currentJourneyIdx = getJourneyIndex(slug);
+  const related = lifeSections
+    .filter((s) => {
+      if (s.slug === slug) return false;
+      // If this page is on the journey, hide anything earlier in the journey.
+      // Topical pages (idx -1) are always allowed.
+      if (currentJourneyIdx === -1) return true;
+      const otherIdx = getJourneyIndex(s.slug);
+      return otherIdx === -1 || otherIdx > currentJourneyIdx;
+    })
+    .slice(0, 4);
 
   return (
     <>
       <PageHeader
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Kharis Life", href: "/life" },
+          { label: section.title.replace(/\.$/, "") },
+        ]}
         eyebrow={section.eyebrow}
         title={section.title}
         intro={section.intro}
@@ -186,12 +201,23 @@ export default async function LifePage({
             <h2 className="font-display text-3xl md:text-4xl tracking-tight">
               Continue the journey.
             </h2>
-            <Link
-              href="/departments"
-              className="text-[13px] uppercase tracking-[0.16em] text-parchment-50 border-b border-parchment-50/30 pb-1 hover:border-grace-light transition-colors"
-            >
-              Or find a team to serve on →
-            </Link>
+            {section.next &&
+              (() => {
+                const target = section.next.href ?? `/life/${section.next.slug}`;
+                const fallbackTitle = getLifeSection(section.next.slug)?.title.replace(
+                  /\.$/,
+                  ""
+                );
+                const label = section.next.label ?? `On to ${fallbackTitle ?? "next"}`;
+                return (
+                  <Link
+                    href={target}
+                    className="text-[13px] uppercase tracking-[0.16em] text-grace-light border-b border-grace-light/40 pb-1 hover:border-grace-light transition-colors"
+                  >
+                    {label} →
+                  </Link>
+                );
+              })()}
           </div>
           <ul className="grid grid-cols-2 md:grid-cols-4 gap-px bg-parchment-50/15 border border-parchment-50/15">
             {related.map((r) => (

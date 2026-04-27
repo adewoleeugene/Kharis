@@ -13,6 +13,7 @@ export default function SafeguardingPage() {
   return (
     <>
       <PageHeader
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Safeguarding" }]}
         eyebrow="Our commitment"
         title="Safeguarding is non-negotiable."
         intro="Every person who walks through a Kharis door — especially children and vulnerable adults — has the right to be safe, heard, and treated with dignity. We take that responsibility seriously across every campus."

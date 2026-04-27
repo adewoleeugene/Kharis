@@ -20,6 +20,7 @@ export type LifeSection = {
   blocks?: LifeBlock[];
   ctaPrimary?: { label: string; href: string };
   ctaSecondary?: { label: string; href: string };
+  next?: { slug: string; label?: string; href?: string };
 };
 
 export const lifeSections: LifeSection[] = [
@@ -64,6 +65,7 @@ export const lifeSections: LifeSection[] = [
     ],
     ctaPrimary: { label: "Tell us you said yes", href: "/contact" },
     ctaSecondary: { label: "Plan a visit", href: "/locations" },
+    next: { slug: "baptism", label: "On to baptism" },
   },
   {
     slug: "baptism",
@@ -102,7 +104,7 @@ export const lifeSections: LifeSection[] = [
         ],
       },
     ],
-    ctaPrimary: { label: "Request a place", href: "/contact" },
+    next: { slug: "kgroups", label: "Next: join a KGroup" },
   },
   {
     slug: "kgroups",
@@ -111,6 +113,7 @@ export const lifeSections: LifeSection[] = [
     intro:
       "KGroups meet every Friday 7:00–8:30pm across every Kharis campus, in homes and cafés, for Scripture, prayer and genuine friendship.",
     ctaPrimary: { label: "Join a KGroup", href: "/life/kgroups" },
+    next: { slug: "volunteer", label: "Next: serve on a team" },
   },
   {
     slug: "marriage",
@@ -146,6 +149,7 @@ export const lifeSections: LifeSection[] = [
       },
     ],
     ctaPrimary: { label: "Start the enquiry", href: "/contact" },
+    next: { slug: "kgroups", label: "Next: join a KGroup" },
   },
   {
     slug: "children",
@@ -182,6 +186,7 @@ export const lifeSections: LifeSection[] = [
       },
     ],
     ctaPrimary: { label: "Register your children", href: "/contact" },
+    next: { slug: "kgroups", label: "Next: join a KGroup" },
   },
   {
     slug: "volunteer",
@@ -191,6 +196,7 @@ export const lifeSections: LifeSection[] = [
       "Kharis runs on the gifts of ordinary people. Whatever you bring — from welcoming guests to mixing sound — there is a team already waiting for you.",
     ctaPrimary: { label: "See departments", href: "/departments" },
     ctaSecondary: { label: "Ask a question", href: "/contact" },
+    next: { slug: "evangelism", label: "Next: go and tell" },
   },
   {
     slug: "testimonies",
@@ -204,6 +210,7 @@ export const lifeSections: LifeSection[] = [
       ref: "Luke 17:15",
     },
     ctaPrimary: { label: "Share your testimony", href: "/contact" },
+    next: { slug: "membership", label: "Next: covenant membership" },
   },
   {
     slug: "fasting",
@@ -223,6 +230,7 @@ export const lifeSections: LifeSection[] = [
       },
     ],
     ctaPrimary: { label: "Upcoming fasts", href: "/events" },
+    next: { slug: "evangelism", label: "Next: go and tell" },
   },
   {
     slug: "evangelism",
@@ -232,6 +240,7 @@ export const lifeSections: LifeSection[] = [
       "Evangelism at Kharis is not a department — it is every believer's call. But we coordinate Bring-A-Soul Sundays, street outreach, and training so the work happens together.",
     ctaPrimary: { label: "Next outreach", href: "/events" },
     ctaSecondary: { label: "Evangelism team", href: "/departments" },
+    next: { slug: "testimonies", label: "Next: share your testimony" },
   },
   {
     slug: "young-adults",
@@ -240,6 +249,7 @@ export const lifeSections: LifeSection[] = [
     intro:
       "Our youth and student services meet under the KP2 banner across five UK cities — including a growing presence on university campuses. If you are between 14 and 24, that is your home at Kharis.",
     ctaPrimary: { label: "Visit KP2", href: "/kp2" },
+    next: { slug: "kgroups", label: "Next: join a KGroup" },
   },
   {
     slug: "membership",
@@ -248,9 +258,27 @@ export const lifeSections: LifeSection[] = [
     intro:
       "Beyond regular attendance, membership is a covenant with the Kharis family — a declaration of intent to grow together, serve together and be accountable together. Speak to your campus lead to begin.",
     ctaPrimary: { label: "Talk to a pastor", href: "/contact" },
+    next: { label: "Back to Kharis Life", href: "/life", slug: "" },
   },
 ];
 
 export function getLifeSection(slug: string) {
   return lifeSections.find((s) => s.slug === slug);
+}
+
+// The canonical Kharis Life journey, in order. Topical sections (marriage,
+// children, fasting, young-adults) are not part of the linear chain — they're
+// optional alongside the main path.
+export const JOURNEY_ORDER = [
+  "become-a-believer",
+  "baptism",
+  "kgroups",
+  "volunteer",
+  "evangelism",
+  "testimonies",
+  "membership",
+] as const;
+
+export function getJourneyIndex(slug: string): number {
+  return (JOURNEY_ORDER as readonly string[]).indexOf(slug);
 }

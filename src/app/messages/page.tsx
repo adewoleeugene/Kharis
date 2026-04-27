@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/ui/page-header";
 import { currentSeries, podcastPlatforms, site } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -9,89 +8,277 @@ export const metadata: Metadata = {
     "Teaching from Pastor David Antwi and the Kharis team — a verse-by-verse expository series in Acts, the Issues of Life thematic series, and a growing audio library on Spotify, Apple Podcasts, SoundCloud and more.",
 };
 
-const recentMessages = [
+type RecentMessage = {
+  series: string;
+  reference: string;
+  title: string;
+  preacher: string;
+  videoId?: string;
+};
+
+const recentMessages: RecentMessage[] = [
   {
     series: "Acts",
     reference: "Acts 21:1–14",
     title: "Can Suffering Be Part Of God's Will?",
     preacher: "Pastor David Antwi",
+    videoId: "gsF2ba-vDGw",
   },
   {
     series: "Acts",
     reference: "Acts 20:30–38",
     title: "I Commend You To God",
     preacher: "Pastor David Antwi",
+    videoId: "vP0-9ugqJJE",
+  },
+  {
+    series: "Special",
+    reference: "Easter",
+    title: "Resurrection Praise Night",
+    preacher: "Kharis Church",
+    videoId: "mZeLUR5be0Y",
   },
   {
     series: "Special",
     reference: "Easter",
     title: "The Implications of the Resurrection",
     preacher: "Pastor David Antwi",
+    videoId: "bSbJFkOS4mY",
   },
   {
     series: "Special",
     reference: "Easter",
     title: "My God Died For Me",
     preacher: "Pastor David Antwi",
+    videoId: "ldJa-TcM5Vc",
+  },
+  {
+    series: "Special",
+    reference: "Good Friday",
+    title: "The Glorious Cross — Good Friday Broadcast",
+    preacher: "Pastor David Antwi",
+    videoId: "CkFM6auEc_g",
+  },
+  {
+    series: "Special",
+    reference: "Matthew 21:1–11",
+    title: "Who Is This?",
+    preacher: "Pastor David Antwi",
+    videoId: "mCjwRX2Tyhk",
   },
   {
     series: "Acts",
     reference: "Acts 20:25–29",
     title: "Future-Proofing the Church",
     preacher: "Pastor David Antwi",
+    videoId: "YbxJQrixIbU",
   },
   {
     series: "Acts",
     reference: "Acts 20:20–24",
     title: "Why I Do What I Do For God",
     preacher: "Pastor David Antwi",
+    videoId: "CAu3DiTv-ME",
   },
 ];
 
-const issuesOfLife = [
-  "A life without restrictions leads to destruction",
-  "The Christian life is about fellowship",
-  "Instead of looking around you for help, look up to God",
-  "Save your best for the one who commits their future to you",
-  "It takes sacrifice to be a wife of a man in ministry",
-  "Here's why the woman you choose to marry matters",
-  "Jesus promises to quench your thirst, but it starts with your humility",
-  "There are 365 'fear nots' in the Bible for a reason",
+type IssuesOfLifeMessage = {
+  episode: string;
+  title: string;
+  blurb?: string;
+  videoId?: string;
+};
+
+const ISSUES_OF_LIFE_PLAYLIST =
+  "https://www.youtube.com/playlist?list=PLFyGYjZDD1FvB9YuoA2JI2GfQQgFfX_c8";
+
+// Order mirrors kharis.org/messages — newest first.
+const issuesOfLife: IssuesOfLifeMessage[] = [
+  {
+    episode: "Episode 30",
+    title: "Restrictions",
+    blurb: "A life without restrictions leads to destruction.",
+    videoId: "WiJkxkTOYfk",
+  },
+  {
+    episode: "Episode 29",
+    title: "Christian Fellowship",
+    blurb: "The Christian life is about fellowship.",
+    videoId: "FTWBHKB2p-4",
+  },
+  {
+    episode: "Episode 27",
+    title: "It’s A Set Up",
+    videoId: "XJ5CSlFMN7s",
+  },
+  {
+    episode: "Episode 26",
+    title: "Trust In God",
+    blurb: "Instead of looking around you for help, look up to God and trust in Him.",
+    videoId: "Ths_WdM6ZGQ",
+  },
+  {
+    episode: "Episode 25",
+    title: "Save The Best",
+    blurb: "Save your best for the one who commits their future to you.",
+    videoId: "EfX2f2mXIQs",
+  },
+  {
+    episode: "Episode 24",
+    title: "Ministry Wives",
+    blurb: "It takes sacrifice to be a wife of a man in ministry.",
+    videoId: "597AJPVSTIo",
+  },
+  {
+    episode: "Episode 23",
+    title: "Choose Wisely",
+    blurb: "Here’s why the woman you choose to marry matters.",
+    videoId: "qqBBa8dVnec",
+  },
+  {
+    episode: "Episode 22",
+    title: "Thirst No More",
+    blurb: "Jesus promises to quench your thirst, but it starts with your humility.",
+    videoId: "kBlFWIbWPuI",
+  },
+  {
+    episode: "Episode 21",
+    title: "Fear Not",
+    blurb: "There are 365 ‘fear nots’ in the Bible for a reason.",
+    videoId: "-JnzlN799do",
+  },
 ];
 
 export default function MessagesPage() {
+  const featured = recentMessages[0];
+  const featuredHref = featured.videoId
+    ? `https://www.youtube.com/watch?v=${featured.videoId}`
+    : "#";
+  const featuredThumb = featured.videoId
+    ? `https://img.youtube.com/vi/${featured.videoId}/maxresdefault.jpg`
+    : null;
+
   return (
     <>
-      <PageHeader
-        eyebrow={currentSeries.eyebrow}
-        title={currentSeries.title}
-        intro={currentSeries.subtitle}
-      >
-        <figure className="max-w-3xl">
-          <blockquote className="font-display text-2xl md:text-3xl text-ink leading-snug">
-            <span className="text-grace">&ldquo;</span>
-            {currentSeries.quote}
-            <span className="text-grace">&rdquo;</span>
-          </blockquote>
-          <figcaption className="mt-4 text-[11px] uppercase tracking-[0.22em] text-ink-500">
-            — {currentSeries.preacher}
-          </figcaption>
-        </figure>
-        <div className="mt-10 flex flex-wrap gap-5">
-          <Link
-            href="#library"
-            className="inline-flex items-center gap-3 bg-ink text-parchment-50 px-7 py-4 text-[13px] uppercase tracking-[0.16em] rounded-xs hover:bg-ink-700 transition-colors"
-          >
-            Browse library <span aria-hidden>→</span>
-          </Link>
-          <Link
-            href="#listen"
-            className="text-[13px] uppercase tracking-[0.16em] text-ink border-b hairline pb-1 hover:border-grace-dark hover:text-grace-dark transition-colors"
-          >
-            Listen on your podcast app
-          </Link>
+      <section className="relative overflow-hidden bg-parchment-50 border-b hairline">
+        <div className="absolute inset-0 grain opacity-40 pointer-events-none" aria-hidden />
+        <div
+          className="absolute -top-32 -right-32 w-[520px] h-[520px] rounded-full bg-grace/10 blur-3xl pointer-events-none"
+          aria-hidden
+        />
+        <div className="container-x max-w-[1400px] mx-auto pt-10 md:pt-14 pb-14 md:pb-20 relative">
+          <nav aria-label="Breadcrumb" className="mb-10 md:mb-12">
+            <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] uppercase tracking-[0.22em]">
+              <li className="flex items-center gap-2">
+                <Link href="/" className="text-ink-500 hover:text-ink transition-colors">
+                  Home
+                </Link>
+                <span aria-hidden className="text-ink-500/40">/</span>
+              </li>
+              <li>
+                <span aria-current="page" className="text-grace-dark">Messages</span>
+              </li>
+            </ol>
+          </nav>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-end">
+            <div className="lg:col-span-7">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="h-px w-8 bg-grace" />
+                <span className="text-[11px] uppercase tracking-[0.22em] text-grace-dark font-medium">
+                  {currentSeries.eyebrow}
+                </span>
+              </div>
+              <h1 className="font-display tracking-tight text-ink leading-[0.95] text-[clamp(2.5rem,6vw,5.5rem)]">
+                {currentSeries.title}
+              </h1>
+              <p className="mt-8 max-w-2xl text-lg md:text-xl text-ink-500 leading-relaxed">
+                {currentSeries.subtitle}
+              </p>
+              <figure className="mt-10 max-w-2xl">
+                <blockquote className="font-display text-2xl md:text-3xl text-ink leading-snug">
+                  <span className="text-grace">&ldquo;</span>
+                  {currentSeries.quote}
+                  <span className="text-grace">&rdquo;</span>
+                </blockquote>
+                <figcaption className="mt-4 text-[11px] uppercase tracking-[0.22em] text-ink-500">
+                  — {currentSeries.preacher}
+                </figcaption>
+              </figure>
+              <div className="mt-10 flex flex-wrap gap-5">
+                <Link
+                  href="#library"
+                  className="inline-flex items-center gap-3 bg-ink text-parchment-50 px-7 py-4 text-[13px] uppercase tracking-[0.16em] rounded-xs hover:bg-ink-700 transition-colors"
+                >
+                  Browse library <span aria-hidden>→</span>
+                </Link>
+                <Link
+                  href="#listen"
+                  className="text-[13px] uppercase tracking-[0.16em] text-ink border-b hairline pb-1 hover:border-grace-dark hover:text-grace-dark transition-colors"
+                >
+                  Listen on your podcast app
+                </Link>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5">
+              <a
+                href={featuredHref}
+                {...(featured.videoId
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+                className="group block border hairline bg-parchment-50 hover:border-grace-dark transition-colors"
+              >
+                <div className="relative aspect-video overflow-hidden bg-ink">
+                  {featuredThumb ? (
+                    <img
+                      src={featuredThumb}
+                      alt={featured.title}
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background:
+                          "radial-gradient(ellipse at 25% 75%, #3f0b2a, #2b061d 60%, #180310 100%)",
+                      }}
+                      aria-hidden
+                    />
+                  )}
+                  <div
+                    className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent pointer-events-none"
+                    aria-hidden
+                  />
+                  <div className="absolute inset-0 p-5 md:p-6 flex flex-col justify-between">
+                    <span className="text-[11px] uppercase tracking-[0.22em] text-grace-light">
+                      Latest message · {featured.series}
+                      {featured.reference ? ` · ${featured.reference}` : ""}
+                    </span>
+                    <div className="flex items-center gap-3 text-parchment-50">
+                      <span className="w-11 h-11 rounded-full bg-grace-light/90 text-ink flex items-center justify-center text-base">
+                        ▶
+                      </span>
+                      <span className="text-xs uppercase tracking-[0.18em]">
+                        Watch on YouTube
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-6 md:p-7">
+                  <h2 className="font-display text-2xl md:text-[26px] leading-tight text-ink group-hover:text-grace-dark transition-colors">
+                    {featured.title}
+                  </h2>
+                  <p className="mt-2 text-xs uppercase tracking-[0.18em] text-ink-500">
+                    {featured.preacher}
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>
         </div>
-      </PageHeader>
+      </section>
 
       <section id="library" className="container-x max-w-[1400px] mx-auto py-20 md:py-28">
         <div className="flex items-end justify-between mb-10 flex-wrap gap-6">
@@ -115,55 +302,81 @@ export default function MessagesPage() {
         </div>
 
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-ink/10 border hairline">
-          {recentMessages.map((m, i) => (
-            <li key={m.title} className="bg-parchment-50">
-              <Link
-                href="#"
-                className="group block h-full"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden bg-ink">
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        i % 3 === 0
-                          ? "radial-gradient(ellipse at 25% 75%, #3f0b2a, #2b061d 60%, #180310 100%)"
-                          : i % 3 === 1
-                          ? "radial-gradient(ellipse at 75% 25%, #8a6328, #2b061d 70%)"
-                          : "radial-gradient(ellipse at 50% 60%, #2c4a3a, #2b061d 75%)",
-                    }}
-                    aria-hidden
-                  />
-                  <div className="absolute inset-0 p-6 flex flex-col justify-between">
-                    <span className="text-[11px] uppercase tracking-[0.22em] text-grace-light">
-                      {m.series} · {m.reference}
-                    </span>
-                    <div className="flex items-center gap-3 text-parchment-50">
-                      <span className="w-10 h-10 rounded-full bg-grace-light/90 text-ink flex items-center justify-center text-sm">
-                        ▶
+          {recentMessages.map((m, i) => {
+            const watchHref = m.videoId
+              ? `https://www.youtube.com/watch?v=${m.videoId}`
+              : "#";
+            const thumbUrl = m.videoId
+              ? `https://img.youtube.com/vi/${m.videoId}/maxresdefault.jpg`
+              : null;
+            return (
+              <li key={m.title} className="bg-parchment-50">
+                <a
+                  href={watchHref}
+                  {...(m.videoId
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                  className="group block h-full"
+                >
+                  <div className="relative aspect-video overflow-hidden bg-ink">
+                    {thumbUrl ? (
+                      <img
+                        src={thumbUrl}
+                        alt={m.title}
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div
+                        className="absolute inset-0"
+                        style={{
+                          background:
+                            i % 3 === 0
+                              ? "radial-gradient(ellipse at 25% 75%, #3f0b2a, #2b061d 60%, #180310 100%)"
+                              : i % 3 === 1
+                              ? "radial-gradient(ellipse at 75% 25%, #8a6328, #2b061d 70%)"
+                              : "radial-gradient(ellipse at 50% 60%, #2c4a3a, #2b061d 75%)",
+                        }}
+                        aria-hidden
+                      />
+                    )}
+                    <div
+                      className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent pointer-events-none"
+                      aria-hidden
+                    />
+                    <div className="absolute inset-0 p-5 md:p-6 flex flex-col justify-between">
+                      <span className="text-[11px] uppercase tracking-[0.22em] text-grace-light">
+                        {m.series} · {m.reference}
                       </span>
-                      <span className="text-xs uppercase tracking-[0.18em]">Watch</span>
+                      <div className="flex items-center gap-3 text-parchment-50">
+                        <span className="w-10 h-10 rounded-full bg-grace-light/90 text-ink flex items-center justify-center text-sm">
+                          ▶
+                        </span>
+                        <span className="text-xs uppercase tracking-[0.18em]">
+                          {m.videoId ? "Watch on YouTube" : "Watch"}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="p-6 md:p-7">
-                  <h3 className="font-display text-xl md:text-[22px] leading-tight text-ink group-hover:text-grace-dark transition-colors">
-                    {m.title}
-                  </h3>
-                  <p className="mt-2 text-xs uppercase tracking-[0.18em] text-ink-500">
-                    {m.preacher}
-                  </p>
-                </div>
-              </Link>
-            </li>
-          ))}
+                  <div className="p-6 md:p-7">
+                    <h3 className="font-display text-xl md:text-[22px] leading-tight text-ink group-hover:text-grace-dark transition-colors">
+                      {m.title}
+                    </h3>
+                    <p className="mt-2 text-xs uppercase tracking-[0.18em] text-ink-500">
+                      {m.preacher}
+                    </p>
+                  </div>
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </section>
 
       <section className="bg-parchment-100 border-y hairline">
         <div className="container-x max-w-[1400px] mx-auto py-20 md:py-24">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            <div className="lg:col-span-5">
+          <div className="flex items-end justify-between mb-10 flex-wrap gap-6">
+            <div>
               <div className="flex items-center gap-3 mb-4">
                 <span className="h-px w-8 bg-grace" />
                 <span className="text-[11px] uppercase tracking-[0.22em] text-grace-dark">
@@ -173,35 +386,87 @@ export default function MessagesPage() {
               <h2 className="font-display text-4xl md:text-5xl tracking-tight text-ink leading-[1.02]">
                 Issues of Life.
               </h2>
-              <p className="mt-6 text-ink-500 leading-relaxed max-w-md">
+              <p className="mt-6 text-ink-500 leading-relaxed max-w-xl">
                 The Word on the ordinary places where life actually happens — marriage, money, fear, fellowship, purpose.
               </p>
             </div>
-
-            <ul className="lg:col-span-7 space-y-px bg-ink/10 border hairline">
-              {issuesOfLife.map((title, i) => (
-                <li key={title} className="bg-parchment-50">
-                  <Link
-                    href="#"
-                    className="group flex items-start gap-6 p-6 md:p-7 hover:bg-parchment-100 transition-colors"
-                  >
-                    <span className="font-display text-grace-dark text-xl shrink-0 w-10 pt-0.5">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="flex-1 font-display text-lg md:text-xl text-ink leading-snug group-hover:text-grace-dark transition-colors">
-                      {title}
-                    </span>
-                    <span
-                      className="text-ink-500 group-hover:text-grace-dark transition-colors pt-1"
-                      aria-hidden
-                    >
-                      →
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <a
+              href={ISSUES_OF_LIFE_PLAYLIST}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[13px] uppercase tracking-[0.16em] text-ink border-b hairline pb-1 hover:border-grace-dark hover:text-grace-dark transition-colors"
+            >
+              Watch the playlist on YouTube →
+            </a>
           </div>
+
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-ink/10 border hairline">
+            {issuesOfLife.map((m) => {
+              const watchHref = m.videoId
+                ? `https://www.youtube.com/watch?v=${m.videoId}`
+                : ISSUES_OF_LIFE_PLAYLIST;
+              const thumbUrl = m.videoId
+                ? `https://img.youtube.com/vi/${m.videoId}/maxresdefault.jpg`
+                : null;
+              return (
+                <li key={`${m.episode}-${m.title}`} className="bg-parchment-50">
+                  <a
+                    href={watchHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block h-full"
+                  >
+                    <div className="relative aspect-video overflow-hidden bg-ink">
+                      {thumbUrl ? (
+                        <img
+                          src={thumbUrl}
+                          alt={`${m.episode} — ${m.title}`}
+                          loading="lazy"
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div
+                          className="absolute inset-0"
+                          style={{
+                            background:
+                              "radial-gradient(ellipse at 30% 70%, #8a6328, #2b061d 70%)",
+                          }}
+                          aria-hidden
+                        />
+                      )}
+                      <div
+                        className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent pointer-events-none"
+                        aria-hidden
+                      />
+                      <div className="absolute inset-0 p-5 flex flex-col justify-between">
+                        <span className="font-display text-grace-light text-lg uppercase tracking-[0.18em]">
+                          {m.episode}
+                        </span>
+                        <div className="flex items-center gap-3 text-parchment-50">
+                          <span className="w-9 h-9 rounded-full bg-grace-light/90 text-ink flex items-center justify-center text-xs">
+                            ▶
+                          </span>
+                          <span className="text-[11px] uppercase tracking-[0.18em]">
+                            {m.videoId ? "Watch" : "Playlist"}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-5 md:p-6">
+                      <p className="font-display text-lg md:text-xl text-ink leading-snug group-hover:text-grace-dark transition-colors">
+                        {m.title}
+                      </p>
+                      {m.blurb && (
+                        <p className="mt-2 text-sm text-ink-500 leading-relaxed">
+                          {m.blurb}
+                        </p>
+                      )}
+                    </div>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </section>
 

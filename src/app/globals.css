@@ -21,7 +21,7 @@
   --color-background: var(--color-parchment-50);
   --color-foreground: var(--color-ink);
 
-  --font-display: var(--font-fraunces);
+  --font-display: var(--font-mvsans);
   --font-sans: var(--font-geist-sans);
 
   --radius-xs: 2px;
@@ -37,6 +37,11 @@
   html {
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  section[id] {
+    scroll-margin-top: 6rem;
   }
 
   body {
@@ -52,8 +57,7 @@
   }
 
   .font-display {
-    font-family: var(--font-display), ui-serif, Georgia, serif;
-    font-optical-sizing: auto;
+    font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
   }
 }
 

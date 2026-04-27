@@ -12,6 +12,7 @@ export default function EventsPage() {
   return (
     <>
       <PageHeader
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Events" }]}
         eyebrow="What's ahead"
         title="Gather with the family."
         intro="From KP2 camps to Bring-A-Soul Sundays, fasting seasons to marriage sessions — every Kharis event is designed to grow the family and reach the city."

@@ -3,8 +3,31 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { campuses, type Region } from "@/lib/campuses";
+import { PastorAvatar } from "@/components/ui/pastor-avatar";
 
 type Filter = "all" | Region;
+
+const DAY_ABBR: Record<string, string> = {
+  sunday: "Sun",
+  sundays: "Sun",
+  monday: "Mon",
+  mondays: "Mon",
+  tuesday: "Tue",
+  tuesdays: "Tue",
+  wednesday: "Wed",
+  wednesdays: "Wed",
+  thursday: "Thu",
+  thursdays: "Thu",
+  friday: "Fri",
+  fridays: "Fri",
+  saturday: "Sat",
+  saturdays: "Sat",
+  midweek: "Midweek",
+};
+
+function shortDay(day: string): string {
+  return DAY_ABBR[day.toLowerCase()] ?? day;
+}
 
 const FILTERS: { id: Filter; label: string }[] = [
   { id: "all", label: "All campuses" },
@@ -164,6 +187,21 @@ function FlagshipCard({ campus }: { campus: (typeof campuses)[number] }) {
                 {campus.venueHint}
               </p>
             )}
+            <div className="mt-8 pt-6 border-t border-parchment-50/15 max-w-xs">
+              <PastorAvatar
+                name={campus.campusLead?.name}
+                image={campus.campusLead?.image}
+                size="xl"
+                variant="dark"
+                fullWidth
+              />
+              <p className="mt-5 text-[10px] uppercase tracking-[0.22em] text-grace-light">
+                {campus.campusLead?.title ?? "Campus pastor"}
+              </p>
+              <p className="mt-2 font-display text-2xl md:text-3xl text-parchment-50 leading-tight">
+                {campus.campusLead?.name ?? "Lead pastor — TBC"}
+              </p>
+            </div>
           </div>
         </div>
 
@@ -231,14 +269,52 @@ function CampusCard({
       </h3>
       <p className="mt-2 text-xs uppercase tracking-[0.18em] text-ink-500">{campus.country}</p>
 
-      <div className="mt-8 pt-5 border-t hairline flex items-center justify-between">
-        <span className="text-xs text-ink-500">
-          {campus.primaryService
-            ? `${campus.primaryService.day} · ${campus.primaryService.time}`
-            : "Service times on campus page"}
-        </span>
+      <div className="mt-6 pt-5 border-t hairline">
+        <PastorAvatar
+          name={campus.campusLead?.name}
+          image={campus.campusLead?.image}
+          size="lg"
+          fullWidth
+        />
+        <p className="mt-5 text-[10px] uppercase tracking-[0.22em] text-grace-dark">
+          {campus.campusLead?.title ?? "Campus pastor"}
+        </p>
+        <p className="mt-1 font-display text-xl text-ink leading-tight">
+          {campus.campusLead?.name ?? "Lead pastor — TBC"}
+        </p>
+      </div>
+
+      <div className="mt-6 pt-5 border-t hairline flex items-end justify-between gap-4">
+        <dl className="space-y-1.5 flex-1 min-w-0">
+          {campus.services && campus.services.length > 0 ? (
+            campus.services.map((s) => (
+              <div
+                key={`${s.day}-${s.time}`}
+                className="flex items-baseline justify-between gap-3"
+              >
+                <dt className="text-[10px] uppercase tracking-[0.18em] text-ink-500">
+                  {shortDay(s.day)}
+                </dt>
+                <dd className="font-display text-sm text-ink tabular-nums">
+                  {s.time}
+                </dd>
+              </div>
+            ))
+          ) : campus.primaryService ? (
+            <div className="flex items-baseline justify-between gap-3">
+              <dt className="text-[10px] uppercase tracking-[0.18em] text-ink-500">
+                {shortDay(campus.primaryService.day)}
+              </dt>
+              <dd className="font-display text-sm text-ink tabular-nums">
+                {campus.primaryService.time}
+              </dd>
+            </div>
+          ) : (
+            <span className="text-xs text-ink-500">Service times on campus page</span>
+          )}
+        </dl>
         <span
-          className="w-8 h-8 rounded-full border hairline flex items-center justify-center text-ink-500 group-hover:bg-ink group-hover:text-parchment-50 group-hover:border-ink transition-colors"
+          className="shrink-0 w-8 h-8 rounded-full border hairline flex items-center justify-center text-ink-500 group-hover:bg-ink group-hover:text-parchment-50 group-hover:border-ink transition-colors"
           aria-hidden
         >
           →

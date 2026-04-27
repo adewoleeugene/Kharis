@@ -28,12 +28,14 @@ export function BuildGodsHouse() {
               {buildFund.body}
             </p>
             <div className="mt-12 flex flex-wrap items-center gap-5">
-              <Link
+              <a
                 href={buildFund.primaryHref}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 bg-grace-light text-ink px-7 py-4 text-[13px] uppercase tracking-[0.16em] rounded-xs hover:bg-parchment-50 transition-colors"
               >
                 {buildFund.primaryLabel} <span aria-hidden>→</span>
-              </Link>
+              </a>
               <Link
                 href={buildFund.secondaryHref}
                 className="text-[13px] uppercase tracking-[0.16em] text-parchment-50 border-b border-parchment-50/30 pb-1 hover:border-grace-light transition-colors"

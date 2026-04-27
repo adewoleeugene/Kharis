@@ -58,6 +58,11 @@ export default function ImNewPage() {
   return (
     <>
       <PageHeader
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Kharis Life", href: "/life" },
+          { label: "I'm New" },
+        ]}
         eyebrow="Welcome home"
         title="Coming for the first time? Breathe."
         intro="You don't need to dress a certain way, know the songs, or bring anything. Just come as you are — we'll meet you at the door and walk the rest of the way with you."
@@ -93,7 +98,7 @@ export default function ImNewPage() {
           {steps.map((s) => (
             <li
               key={s.n}
-              className="bg-parchment-50 p-7 md:p-8 flex flex-col justify-between min-h-[220px]"
+              className="bg-parchment-50 p-7 md:p-8 flex flex-col gap-10 min-h-[280px]"
             >
               <span className="font-display text-2xl text-grace-dark">{s.n}</span>
               <div>
@@ -176,6 +181,77 @@ export default function ImNewPage() {
             </div>
           </div>
         </div>
+      </section>
+
+      <section className="container-x max-w-[1400px] mx-auto py-20 md:py-24">
+        <div className="flex items-end justify-between mb-10 gap-6 flex-wrap">
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="h-px w-8 bg-grace" />
+              <span className="text-[11px] uppercase tracking-[0.22em] text-grace-dark">
+                After your first visit
+              </span>
+            </div>
+            <h2 className="font-display text-4xl md:text-5xl text-ink tracking-tight leading-[1.02]">
+              You came. Now let&rsquo;s go deeper.
+            </h2>
+            <p className="mt-5 max-w-xl text-ink-500 leading-relaxed">
+              The Kharis Life is built in community and through service. Whatever you&rsquo;re ready for next — meeting Jesus, finding a small group, or joining a team — there&rsquo;s a doorway here.
+            </p>
+          </div>
+          <Link
+            href="/life"
+            className="text-[13px] uppercase tracking-[0.16em] text-ink border-b hairline pb-1 hover:border-grace-dark hover:text-grace-dark transition-colors"
+          >
+            All of Kharis Life →
+          </Link>
+        </div>
+
+        <ul className="grid grid-cols-1 md:grid-cols-3 gap-px bg-ink/10 border hairline">
+          {[
+            {
+              meta: "01 · The first step",
+              label: "Become a Believer",
+              body: "Meet Jesus and begin a new life in Christ. No prior experience required.",
+              href: "/life/become-a-believer",
+            },
+            {
+              meta: "02 · Find your people",
+              label: "Join a KGroup",
+              body: "Small home fellowships across every campus, every Friday — Scripture, prayer and friendship.",
+              href: "/life/kgroups",
+            },
+            {
+              meta: "03 · Serve a team",
+              label: "Find a department",
+              body: "Welcome, worship, media, children, prayer — every gift has a place. Find yours.",
+              href: "/departments",
+            },
+          ].map((item) => (
+            <li key={item.href} className="bg-parchment-50">
+              <Link
+                href={item.href}
+                className="group flex flex-col justify-between h-full p-7 md:p-8 min-h-[260px] hover:bg-parchment-100 transition-colors"
+              >
+                <span className="text-[11px] uppercase tracking-[0.22em] text-grace-dark">
+                  {item.meta}
+                </span>
+                <div>
+                  <h3 className="font-display text-3xl text-ink leading-tight group-hover:text-grace-dark transition-colors">
+                    {item.label}
+                  </h3>
+                  <p className="mt-3 text-sm text-ink-500 leading-relaxed">{item.body}</p>
+                  <span
+                    aria-hidden
+                    className="mt-6 inline-block text-[11px] uppercase tracking-[0.18em] text-ink-500 group-hover:text-grace-dark transition-colors"
+                  >
+                    Read more →
+                  </span>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </section>
     </>
   );

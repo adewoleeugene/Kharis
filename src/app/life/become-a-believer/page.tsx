@@ -39,6 +39,11 @@ export default function BecomeABelieverPage() {
   return (
     <>
       <PageHeader
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Kharis Life", href: "/life" },
+          { label: "Become a Believer" },
+        ]}
         eyebrow="The Kharis Life · First step"
         title="Believe. Become. Belong."
         intro='"The Christian life is a one-another life." — Pastor David Antwi. A believer is someone who repents of sin and believes in the life, death and resurrection of Jesus Christ. If that is where you are — or where you want to be — start here.'

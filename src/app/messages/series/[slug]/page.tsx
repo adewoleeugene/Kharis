@@ -38,15 +38,36 @@ export default async function SeriesDetailPage({
 
   return (
     <>
-      <PageHeader eyebrow={s.eyebrow} title={s.title} intro={s.subtitle}>
+      <PageHeader
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Messages", href: "/messages" },
+          { label: "Series", href: "/messages/series" },
+          { label: s.title },
+        ]}
+        eyebrow={s.eyebrow}
+        title={s.title}
+        intro={s.subtitle}
+      >
         <p className="max-w-2xl text-base text-ink-500 leading-relaxed">{s.description}</p>
         <div className="mt-8 flex flex-wrap gap-5">
-          <Link
-            href="#messages"
-            className="inline-flex items-center gap-3 bg-ink text-parchment-50 px-7 py-4 text-[13px] uppercase tracking-[0.16em] rounded-xs hover:bg-ink-700 transition-colors"
-          >
-            Browse messages <span aria-hidden>→</span>
-          </Link>
+          {s.watchUrl ? (
+            <a
+              href={s.watchUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 bg-ink text-parchment-50 px-7 py-4 text-[13px] uppercase tracking-[0.16em] rounded-xs hover:bg-ink-700 transition-colors"
+            >
+              Watch on YouTube <span aria-hidden>→</span>
+            </a>
+          ) : (
+            <Link
+              href="#messages"
+              className="inline-flex items-center gap-3 bg-ink text-parchment-50 px-7 py-4 text-[13px] uppercase tracking-[0.16em] rounded-xs hover:bg-ink-700 transition-colors"
+            >
+              Browse messages <span aria-hidden>→</span>
+            </Link>
+          )}
           <Link
             href="/messages/audio"
             className="text-[13px] uppercase tracking-[0.16em] text-ink border-b hairline pb-1 hover:border-grace-dark hover:text-grace-dark transition-colors"

@@ -54,12 +54,25 @@ export default async function EventDetailPage({
           aria-hidden
         />
         <div className="container-x max-w-[1400px] mx-auto pt-20 md:pt-28 pb-24 md:pb-32 relative">
-          <Link
-            href="/events"
-            className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-ink-300 hover:text-grace-light transition-colors"
-          >
-            <span aria-hidden>←</span> All events
-          </Link>
+          <nav aria-label="Breadcrumb">
+            <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] uppercase tracking-[0.22em]">
+              <li>
+                <Link href="/" className="text-ink-300 hover:text-parchment-50 transition-colors">
+                  Home
+                </Link>
+              </li>
+              <li aria-hidden className="text-ink-300/50">/</li>
+              <li>
+                <Link href="/events" className="text-ink-300 hover:text-parchment-50 transition-colors">
+                  Events
+                </Link>
+              </li>
+              <li aria-hidden className="text-ink-300/50">/</li>
+              <li aria-current="page" className="text-grace-light">
+                {event.title}
+              </li>
+            </ol>
+          </nav>
 
           <div className="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
             <div className="lg:col-span-8">

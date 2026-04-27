@@ -6,13 +6,18 @@ import { podcastPlatforms, site } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Audio & Podcast",
   description:
-    "Listen to Kharis Church messages on Spotify, Apple Podcasts, SoundCloud, Google Podcasts, Amazon Music and YouTube — every message from Pastor David Antwi, available wherever you already listen.",
+    "Watch Kharis Church messages on YouTube — every message from Pastor David Antwi, available on the @KharisMinistries channel.",
 };
 
 export default function AudioPage() {
   return (
     <>
       <PageHeader
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Messages", href: "/messages" },
+          { label: "Audio & Podcast" },
+        ]}
         eyebrow="Listen anywhere"
         title="Take Kharis with you."
         intro="Every message, every platform. Subscribe wherever you already listen — new episodes land within a day of the live teaching."

@@ -19,6 +19,11 @@ export default function SeriesIndexPage() {
   return (
     <>
       <PageHeader
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Messages", href: "/messages" },
+          { label: "Series" },
+        ]}
         eyebrow="Every teaching series"
         title="Work through the Word, book by book."
         intro="From verse-by-verse expositions to thematic explorations and seasonal specials — every Kharis series in one place."

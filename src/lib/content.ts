@@ -18,6 +18,7 @@ export const site = {
   },
   contactEmails: {
     kgroup: "kgroup@kharis.org",
+    kp2: "kp2@kharis.org",
   },
   externalLinks: {
     reportIncident:
@@ -39,13 +40,36 @@ export const bankDetails = {
   iban: "GB88BUKB20718280608335",
 } as const;
 
+export const textGiving = {
+  // UK SMS giving — verified against kharis.org/giving
+  keywordPrefix: "KCGIVE",
+  shortCode: "70085",
+  maxAmountGBP: 20,
+  example: "KCGIVE 10",
+} as const;
+
+export const onlineGiving = {
+  // Placeholder Tithe.ly form — branch selection happens on the form itself.
+  // Replace with the per-branch form ID once finalised.
+  url: "https://give.tithe.ly/?formId=3aeb802d-19d5-4952-bff3-0fa4085971be",
+} as const;
+
 export const podcastPlatforms = [
   { label: "YouTube", href: "https://www.youtube.com/@KharisMinistries" },
-  { label: "Spotify", href: "#" },
-  { label: "Apple Podcasts", href: "#" },
-  { label: "SoundCloud", href: "#" },
-  { label: "Google Podcasts", href: "#" },
-  { label: "Amazon Music", href: "#" },
+  { label: "Spotify", href: "https://open.spotify.com/show/6EfmpLAHngHDBsLjrQwnS7" },
+  {
+    label: "Apple Podcasts",
+    href: "https://podcasts.apple.com/gb/podcast/messages-by-david-antwi/id1069725119",
+  },
+  { label: "SoundCloud", href: "https://soundcloud.com/kharismedia" },
+  {
+    label: "Amazon Music",
+    href: "https://music.amazon.com/podcasts/60953161-8353-4278-a33c-592454d9157d/messages-by-david-antwi",
+  },
+  {
+    label: "Google Podcasts",
+    href: "https://podcasts.google.com/feed/aHR0cHM6Ly9mZWVkcy5zb3VuZGNsb3VkLmNvbS91c2Vycy9zb3VuZGNsb3VkOnVzZXJzOjU4NjI1MjIxL3NvdW5kcy5yc3M=",
+  },
 ] as const;
 
 export type NavItem = {
@@ -59,6 +83,7 @@ export const nav: NavItem[] = [
   { label: "About", href: "/about" },
   {
     label: "Messages",
+    href: "/messages",
     description: "Teaching at the centre of our life together.",
     items: [
       { label: "Latest Message", href: "/messages" },
@@ -72,6 +97,7 @@ export const nav: NavItem[] = [
     label: "Kharis Life",
     description: "A path from first faith to full participation.",
     items: [
+      { label: "I'm New", href: "/im-new", description: "What to expect on your first visit." },
       { label: "Become a Believer", href: "/life/become-a-believer" },
       { label: "Baptism", href: "/life/baptism" },
       { label: "KGroups", href: "/life/kgroups", description: "Fridays · 7:00–8:30pm." },
@@ -82,6 +108,7 @@ export const nav: NavItem[] = [
       { label: "Fasting", href: "/life/fasting" },
       { label: "Volunteer", href: "/life/volunteer" },
       { label: "Testimonies", href: "/life/testimonies" },
+      { label: "Membership", href: "/life/membership", description: "Covenant with the Kharis family." },
     ],
   },
   { label: "Locations", href: "/locations" },
@@ -250,10 +277,20 @@ export const buildFund = {
   title: "Build God A House",
   body: "We are believing for a permanent home — a place of teaching, worship, and refuge for every Kharis family across the nations. Partner with a one-time gift or a 24-month pledge.",
   primaryLabel: "Partner with the vision",
-  primaryHref: "/give/build-gods-house",
-  secondaryLabel: "Read the story",
-  secondaryHref: "/about/building-fund",
+  // Direct Tithe.ly link earmarked for the Building Fund.
+  primaryHref:
+    "https://tithe.ly/give_new/www/#/tithely/give-one-time/6177752?giving_to=Building%20Fund",
+  primaryExternal: true,
+  secondaryLabel: "Other ways to give",
+  secondaryHref: "/give",
+  donateUrl:
+    "https://tithe.ly/give_new/www/#/tithely/give-one-time/6177752?giving_to=Building%20Fund",
 };
+
+export const paypalGiving = {
+  url:
+    "https://www.paypal.com/donate?token=DxQU2f35Y2sc1EQazW70D0jM8ry2xLbETH6SNCBIOItOpa66s1AO4Ol5VjOJuDE48f1wL5R49-JH93PV",
+} as const;
 
 export const testimonies = {
   eyebrow: "Testimonies",
@@ -316,7 +353,7 @@ export const footerColumns = [
     heading: "Give",
     links: [
       { label: "Tithes & Offerings", href: "/give" },
-      { label: "Build God A House", href: "/give/build-gods-house" },
+      { label: "Build God A House", href: "https://tithe.ly/give_new/www/#/tithely/give-one-time/6177752?giving_to=Building%20Fund" },
       { label: "Bank Transfer / IBAN", href: "/give#bank" },
       { label: "Text Giving (UK)", href: "/give#text" },
       { label: "Why We Give", href: "/give/why" },

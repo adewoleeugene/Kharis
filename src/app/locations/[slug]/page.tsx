@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/ui/page-header";
+import { PastorAvatar } from "@/components/ui/pastor-avatar";
 import { campuses, getCampus } from "@/lib/campuses";
 
 export function generateStaticParams() {
@@ -43,6 +44,11 @@ export default async function CampusPage({
   return (
     <>
       <PageHeader
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Locations", href: "/locations" },
+          { label: campus.city },
+        ]}
         eyebrow={
           campus.flagship
             ? `Kharis ${campus.city} · Flagship campus`
@@ -60,7 +66,7 @@ export default async function CampusPage({
       >
         <div className="flex flex-wrap gap-5">
           <Link
-            href="#visit"
+            href={`/contact?campus=${campus.slug}`}
             className="inline-flex items-center gap-3 bg-ink text-parchment-50 px-7 py-4 text-[13px] uppercase tracking-[0.16em] rounded-xs hover:bg-ink-700 transition-colors"
           >
             {hasSchedule ? "Plan your visit" : "Get in touch"} <span aria-hidden>→</span>
@@ -74,7 +80,7 @@ export default async function CampusPage({
         </div>
       </PageHeader>
 
-      <section id="visit" className="container-x max-w-[1400px] mx-auto py-20 md:py-24">
+      <section className="container-x max-w-[1400px] mx-auto py-20 md:py-24">
         <div className="flex items-end justify-between mb-10 flex-wrap gap-6">
           <div>
             <div className="flex items-center gap-3 mb-4">
@@ -141,7 +147,7 @@ export default async function CampusPage({
               We&rsquo;ll reply within a day.
             </p>
             <Link
-              href="/contact"
+              href={`/contact?campus=${campus.slug}`}
               className="mt-8 inline-flex items-center gap-3 bg-ink text-parchment-50 px-7 py-4 text-[13px] uppercase tracking-[0.16em] rounded-xs hover:bg-ink-700 transition-colors"
             >
               Message Kharis {campus.city} <span aria-hidden>→</span>
@@ -161,6 +167,12 @@ export default async function CampusPage({
                     Campus lead
                   </span>
                 </div>
+                <PastorAvatar
+                  name={campus.campusLead.name}
+                  image={campus.campusLead.image}
+                  size="xl"
+                  className="mb-8"
+                />
                 <h2 className="font-display text-4xl md:text-5xl tracking-tight text-ink leading-[1.02]">
                   {campus.campusLead.name}.
                 </h2>
@@ -234,7 +246,7 @@ export default async function CampusPage({
         <div className="container-x max-w-[1400px] mx-auto py-20 md:py-24">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
             <div>
-              <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-center gap-3 mb-4">
                 <span className="h-px w-8 bg-grace-light" />
                 <span className="text-[11px] uppercase tracking-[0.22em] text-grace-light">
                   {hasSchedule ? "Directions" : "Contact"}
@@ -279,7 +291,7 @@ export default async function CampusPage({
               )}
             </div>
 
-            <div className="border border-parchment-50/15 bg-ink-700/40 backdrop-blur-sm p-8 md:p-10">
+            <div className="md:mt-8 border border-parchment-50/15 bg-ink-700/40 backdrop-blur-sm p-8 md:p-10">
               <span className="text-[11px] uppercase tracking-[0.22em] text-ink-300">
                 Get in touch
               </span>
@@ -291,7 +303,7 @@ export default async function CampusPage({
                 us ahead of time. We&rsquo;ll make sure someone&rsquo;s expecting you.
               </p>
               <Link
-                href="/contact"
+                href={`/contact?campus=${campus.slug}`}
                 className="mt-8 inline-flex items-center gap-3 bg-grace-light text-ink px-7 py-4 text-[13px] uppercase tracking-[0.16em] rounded-xs hover:bg-parchment-50 transition-colors"
               >
                 Message Kharis {campus.city} <span aria-hidden>→</span>

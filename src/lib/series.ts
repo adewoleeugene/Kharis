@@ -13,6 +13,7 @@ export type Series = {
   kind: "Expository" | "Thematic" | "Special";
   tone: "ink" | "sage" | "gold";
   sermons: Sermon[];
+  watchUrl?: string;
 };
 
 export const series: Series[] = [
@@ -33,6 +34,7 @@ export const series: Series[] = [
       { title: "Future-Proofing the Church", reference: "Acts 20:25–29" },
       { title: "Why I Do What I Do For God", reference: "Acts 20:20–24" },
     ],
+    watchUrl: "https://www.youtube.com/watch?v=gsF2ba-vDGw",
   },
   {
     slug: "issues-of-life",
@@ -55,6 +57,7 @@ export const series: Series[] = [
       { title: "Jesus promises to quench your thirst, but it starts with your humility" },
       { title: "There are 365 'fear nots' in the Bible for a reason" },
     ],
+    watchUrl: "https://www.youtube.com/playlist?list=PLFyGYjZDD1FvB9YuoA2JI2GfQQgFfX_c8",
   },
   {
     slug: "easter-2026",

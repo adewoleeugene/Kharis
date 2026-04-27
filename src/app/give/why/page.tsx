@@ -30,6 +30,11 @@ export default function WhyWeGivePage() {
   return (
     <>
       <PageHeader
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Give", href: "/give" },
+          { label: "Why we give" },
+        ]}
         eyebrow="A theology of giving"
         title="Giving is worship. Not a transaction."
         intro="At Kharis, we do not give to earn God's love — we give because we already have it. What follows is the outline of how we think about generosity, tithes, and offerings."

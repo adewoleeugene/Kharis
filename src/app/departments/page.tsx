@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/ui/page-header";
-import { departmentGroups, site } from "@/lib/content";
+import { departmentGroups } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Departments",
@@ -15,6 +15,11 @@ export default function DepartmentsPage() {
   return (
     <>
       <PageHeader
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Kharis Life", href: "/life" },
+          { label: "Departments" },
+        ]}
         eyebrow="Serve together"
         title={
           "Every believer has a place. " +
@@ -100,8 +105,8 @@ export default function DepartmentsPage() {
           aria-hidden
         />
         <div className="container-x max-w-[1400px] mx-auto py-24 md:py-28 relative">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
-            <div className="lg:col-span-7">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            <div className="lg:col-span-6">
               <div className="flex items-center gap-3 mb-6">
                 <span className="h-px w-8 bg-grace-light" />
                 <span className="text-[11px] uppercase tracking-[0.22em] text-grace-light">
@@ -111,108 +116,111 @@ export default function DepartmentsPage() {
               <h2 className="font-display text-4xl md:text-6xl tracking-tight leading-[1.02]">
                 Three simple steps.
               </h2>
-            </div>
-            <p className="lg:col-span-5 text-ink-300 leading-relaxed max-w-md">
-              Every department has a leader who will walk with you from enquiry
-              through induction. You don&rsquo;t need prior experience — just a willing
-              heart.
-            </p>
-          </div>
+              <p className="mt-6 text-ink-300 leading-relaxed max-w-md">
+                Every department has a leader who will walk with you from enquiry
+                through induction. You don&rsquo;t need prior experience — just a willing
+                heart.
+              </p>
 
-          <ol className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-px bg-parchment-50/15">
-            {[
-              {
-                n: "01",
-                h: "Tell us you’re in",
-                b: "Speak to the admin desk on a Sunday, or write to us using the form below.",
-              },
-              {
-                n: "02",
-                h: "Meet the team",
-                b: "The department leader will introduce you to how they work and where you fit.",
-              },
-              {
-                n: "03",
-                h: "Start serving",
-                b: "A short induction, then you’re on the rota. We grow as we go.",
-              },
-            ].map((s) => (
-              <li key={s.n} className="bg-ink p-8 md:p-10 min-h-[220px] flex flex-col justify-between">
-                <span className="font-display text-4xl text-grace-light">{s.n}</span>
-                <div>
-                  <h3 className="font-display text-2xl text-parchment-50 leading-tight">
-                    {s.h}
-                  </h3>
-                  <p className="mt-3 text-sm text-ink-300 leading-relaxed">{s.b}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-
-          <div className="mt-14 border border-parchment-50/15 bg-ink-700/40 backdrop-blur-sm p-8 md:p-10 max-w-2xl">
-            <div className="flex items-baseline justify-between mb-6">
-              <span className="text-[11px] uppercase tracking-[0.22em] text-ink-300">
-                Register interest
-              </span>
-              <span className="text-[11px] uppercase tracking-[0.22em] text-grace-light">
-                We read every reply
-              </span>
+              <ol className="mt-12 space-y-px bg-parchment-50/15 border border-parchment-50/15">
+                {[
+                  {
+                    n: "01",
+                    h: "Tell us you’re in",
+                    b: "Speak to the admin desk on a Sunday, or write to us using the form.",
+                  },
+                  {
+                    n: "02",
+                    h: "Meet the team",
+                    b: "The department leader will introduce you to how they work and where you fit.",
+                  },
+                  {
+                    n: "03",
+                    h: "Start serving",
+                    b: "A short induction, then you’re on the rota. We grow as we go.",
+                  },
+                ].map((s) => (
+                  <li key={s.n} className="bg-ink p-7 md:p-8 flex gap-6 items-start">
+                    <span className="font-display text-3xl md:text-4xl text-grace-light shrink-0 w-12 leading-none">
+                      {s.n}
+                    </span>
+                    <div>
+                      <h3 className="font-display text-xl md:text-2xl text-parchment-50 leading-tight">
+                        {s.h}
+                      </h3>
+                      <p className="mt-2 text-sm text-ink-300 leading-relaxed">{s.b}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
             </div>
-            <form className="space-y-5" action="#" aria-label="Department application form">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+            <div className="lg:col-span-6 lg:mt-10 border border-parchment-50/15 bg-ink-700/40 backdrop-blur-sm p-10 md:p-12">
+              <div className="flex items-baseline justify-between mb-10">
+                <span className="text-[11px] uppercase tracking-[0.22em] text-ink-300">
+                  Register interest
+                </span>
+                <span className="text-[11px] uppercase tracking-[0.22em] text-grace-light">
+                  We read every reply
+                </span>
+              </div>
+              <form className="space-y-7" action="#" aria-label="Department application form">
                 <label className="block">
-                  <span className="block text-[11px] uppercase tracking-[0.18em] text-ink-300 mb-2">
+                  <span className="block text-[11px] uppercase tracking-[0.18em] text-ink-300 mb-3">
                     Full name
                   </span>
                   <input
                     type="text"
+                    name="name"
                     className="w-full bg-transparent border-b border-parchment-50/30 focus:border-grace-light py-2 outline-none transition-colors"
                     required
                   />
                 </label>
                 <label className="block">
-                  <span className="block text-[11px] uppercase tracking-[0.18em] text-ink-300 mb-2">
+                  <span className="block text-[11px] uppercase tracking-[0.18em] text-ink-300 mb-3">
                     Email
                   </span>
                   <input
                     type="email"
+                    name="email"
                     className="w-full bg-transparent border-b border-parchment-50/30 focus:border-grace-light py-2 outline-none transition-colors"
                     required
                   />
                 </label>
-              </div>
-              <label className="block">
-                <span className="block text-[11px] uppercase tracking-[0.18em] text-ink-300 mb-2">
-                  Campus
-                </span>
-                <input
-                  type="text"
-                  placeholder="London, Birmingham, Accra…"
-                  className="w-full bg-transparent border-b border-parchment-50/30 focus:border-grace-light py-2 outline-none placeholder:text-ink-300/60 transition-colors"
-                />
-              </label>
-              <label className="block">
-                <span className="block text-[11px] uppercase tracking-[0.18em] text-ink-300 mb-2">
-                  Which department interests you?
-                </span>
-                <input
-                  type="text"
-                  placeholder="Worship, Media, Welcome, Children…"
-                  className="w-full bg-transparent border-b border-parchment-50/30 focus:border-grace-light py-2 outline-none placeholder:text-ink-300/60 transition-colors"
-                />
-              </label>
-              <button
-                type="submit"
-                className="mt-4 inline-flex items-center gap-3 bg-grace-light text-ink px-7 py-4 text-[13px] uppercase tracking-[0.16em] rounded-xs hover:bg-parchment-50 transition-colors"
-              >
-                Send enquiry <span aria-hidden>→</span>
-              </button>
-            </form>
-            <p className="mt-6 pt-5 border-t border-parchment-50/15 text-xs text-ink-300 leading-relaxed">
-              Safeguarding applies to every department. Roles working with
-              children or vulnerable adults require a DBS check.
-              Written to {site.contactEmails.kgroup}.
-            </p>
+                <label className="block">
+                  <span className="block text-[11px] uppercase tracking-[0.18em] text-ink-300 mb-3">
+                    Campus
+                  </span>
+                  <input
+                    type="text"
+                    name="campus"
+                    placeholder="London, Birmingham, Accra…"
+                    className="w-full bg-transparent border-b border-parchment-50/30 focus:border-grace-light py-2 outline-none placeholder:text-ink-300/60 transition-colors"
+                  />
+                </label>
+                <label className="block">
+                  <span className="block text-[11px] uppercase tracking-[0.18em] text-ink-300 mb-3">
+                    Which department interests you?
+                  </span>
+                  <input
+                    type="text"
+                    name="department"
+                    placeholder="Worship, Media, Welcome, Children…"
+                    className="w-full bg-transparent border-b border-parchment-50/30 focus:border-grace-light py-2 outline-none placeholder:text-ink-300/60 transition-colors"
+                  />
+                </label>
+                <button
+                  type="submit"
+                  className="mt-6 inline-flex items-center gap-3 bg-grace-light text-ink px-7 py-4 text-[13px] uppercase tracking-[0.16em] rounded-xs hover:bg-parchment-50 transition-colors"
+                >
+                  Send enquiry <span aria-hidden>→</span>
+                </button>
+              </form>
+              <p className="mt-8 pt-6 border-t border-parchment-50/15 text-xs text-ink-300 leading-relaxed">
+                Safeguarding applies to every department. Roles working with
+                children or vulnerable adults require a DBS check.
+              </p>
+            </div>
           </div>
         </div>
       </section>

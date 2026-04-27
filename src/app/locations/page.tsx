@@ -13,6 +13,7 @@ export default function LocationsPage() {
   return (
     <>
       <PageHeader
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Locations" }]}
         eyebrow="Across the nations"
         title="Fifteen campuses. One family."
         intro="Kharis gathers in thirteen cities across the United Kingdom and in two nations overseas. Filter, search, and find the campus nearest to you — we’ll meet you at the door."

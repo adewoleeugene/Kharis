@@ -2,7 +2,6 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/ui/page-header";
 import { site } from "@/lib/content";
-import { campuses } from "@/lib/campuses";
 
 export const metadata: Metadata = {
   title: "KGroups",
@@ -32,6 +31,11 @@ export default function KGroupsPage() {
   return (
     <>
       <PageHeader
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Kharis Life", href: "/life" },
+          { label: "KGroups" },
+        ]}
         eyebrow="Small home fellowships"
         title="Growing larger and smaller at the same time."
         intro="Every Friday, across every Kharis campus, KGroups gather in homes and cafés for Scripture, prayer and genuine friendship — because fellowship is not optional to the Christian life."
@@ -102,42 +106,7 @@ export default function KGroupsPage() {
         </div>
       </section>
 
-      <section className="bg-parchment-100 border-y hairline">
-        <div className="container-x max-w-[1400px] mx-auto py-20 md:py-24">
-          <div className="flex items-end justify-between mb-10 flex-wrap gap-6">
-            <h2 className="font-display text-4xl md:text-5xl text-ink tracking-tight leading-[1.02]">
-              KGroups meet in every Kharis city.
-            </h2>
-            <Link
-              href="/locations"
-              className="text-[13px] uppercase tracking-[0.16em] text-ink border-b hairline pb-1 hover:border-grace-dark hover:text-grace-dark transition-colors"
-            >
-              All campuses →
-            </Link>
-          </div>
-
-          <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-px bg-ink/10 border hairline">
-            {campuses.map((c) => (
-              <li key={c.slug} className="bg-parchment-50">
-                <Link
-                  href={`/locations/${c.slug}`}
-                  className="group flex items-center justify-between h-full p-5 hover:bg-parchment-100 transition-colors"
-                >
-                  <span className="font-display text-lg text-ink">{c.city}</span>
-                  <span
-                    className="text-ink-500 group-hover:text-grace-dark transition-colors"
-                    aria-hidden
-                  >
-                    →
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section
+<section
         id="join"
         className="bg-ink text-parchment-50 relative overflow-hidden"
       >
@@ -150,8 +119,8 @@ export default function KGroupsPage() {
           aria-hidden
         />
         <div className="container-x max-w-[1400px] mx-auto py-24 md:py-28 relative">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
-            <div className="lg:col-span-7">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            <div className="lg:col-span-6">
               <div className="flex items-center gap-3 mb-6">
                 <span className="h-px w-8 bg-grace-light" />
                 <span className="text-[11px] uppercase tracking-[0.22em] text-grace-light">
@@ -159,39 +128,36 @@ export default function KGroupsPage() {
                 </span>
               </div>
               <h2 className="font-display text-5xl md:text-7xl tracking-tight leading-[0.92]">
-                The fastest way <br className="hidden md:inline" /> in.
+                The fastest way in.
               </h2>
+              <p className="mt-8 text-ink-300 leading-relaxed max-w-md">
+                Tell us your city. A KGroup leader will reach out this week with the
+                host, the address, and what to bring — usually nothing but yourself.
+              </p>
             </div>
-            <p className="lg:col-span-5 text-ink-300 leading-relaxed max-w-md">
-              Tell us your city. A KGroup leader will reach out this week with the
-              host, the address, and what to bring — usually nothing but yourself.
-            </p>
-          </div>
 
-          <div className="mt-14 border border-parchment-50/20 bg-ink-700/40 backdrop-blur-sm p-8 md:p-10 max-w-2xl">
+            <div className="lg:col-span-6 border border-parchment-50/20 bg-ink-700/40 backdrop-blur-sm p-8 md:p-10">
             <form className="space-y-5" action="#" method="post" aria-label="KGroup request">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <label className="block">
-                  <span className="block text-[11px] uppercase tracking-[0.18em] text-ink-300 mb-2">
-                    Full name
-                  </span>
-                  <input
-                    type="text"
-                    className="w-full bg-transparent border-b border-parchment-50/30 focus:border-grace-light py-2 outline-none transition-colors"
-                    required
-                  />
-                </label>
-                <label className="block">
-                  <span className="block text-[11px] uppercase tracking-[0.18em] text-ink-300 mb-2">
-                    Email
-                  </span>
-                  <input
-                    type="email"
-                    className="w-full bg-transparent border-b border-parchment-50/30 focus:border-grace-light py-2 outline-none transition-colors"
-                    required
-                  />
-                </label>
-              </div>
+              <label className="block">
+                <span className="block text-[11px] uppercase tracking-[0.18em] text-ink-300 mb-2">
+                  Full name
+                </span>
+                <input
+                  type="text"
+                  className="w-full bg-transparent border-b border-parchment-50/30 focus:border-grace-light py-2 outline-none transition-colors"
+                  required
+                />
+              </label>
+              <label className="block">
+                <span className="block text-[11px] uppercase tracking-[0.18em] text-ink-300 mb-2">
+                  Email
+                </span>
+                <input
+                  type="email"
+                  className="w-full bg-transparent border-b border-parchment-50/30 focus:border-grace-light py-2 outline-none transition-colors"
+                  required
+                />
+              </label>
               <label className="block">
                 <span className="block text-[11px] uppercase tracking-[0.18em] text-ink-300 mb-2">
                   City
@@ -221,6 +187,45 @@ export default function KGroupsPage() {
               .
             </p>
           </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-parchment-100 border-y hairline">
+        <div className="container-x max-w-[1400px] mx-auto py-16 md:py-20">
+          <div className="flex items-end justify-between mb-10 flex-wrap gap-6">
+            <h2 className="font-display text-3xl md:text-4xl text-ink tracking-tight">
+              Continue the journey.
+            </h2>
+            <Link
+              href="/life/volunteer"
+              className="text-[13px] uppercase tracking-[0.16em] text-ink border-b hairline pb-1 hover:border-grace-dark hover:text-grace-dark transition-colors"
+            >
+              Next: serve on a team →
+            </Link>
+          </div>
+          <ul className="grid grid-cols-2 md:grid-cols-4 gap-px bg-ink/10 border hairline">
+            {[
+              { label: "Volunteer", href: "/life/volunteer", meta: "Serve on a team" },
+              { label: "Departments", href: "/departments", meta: "Find your fit" },
+              { label: "Membership", href: "/life/membership", meta: "Covenant with the family" },
+              { label: "Evangelism", href: "/life/evangelism", meta: "Reach the city" },
+            ].map((item, i) => (
+              <li key={item.href} className="bg-parchment-50">
+                <Link
+                  href={item.href}
+                  className="group flex flex-col justify-between h-full p-6 min-h-[140px] hover:bg-parchment-100 transition-colors"
+                >
+                  <span className="text-[11px] uppercase tracking-[0.22em] text-grace-dark">
+                    {String(i + 1).padStart(2, "0")} · {item.meta}
+                  </span>
+                  <span className="font-display text-2xl text-ink mt-6 group-hover:text-grace-dark transition-colors">
+                    {item.label}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
     </>

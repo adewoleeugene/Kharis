@@ -35,6 +35,7 @@ export default function NewsPage() {
   return (
     <>
       <PageHeader
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "News" }]}
         eyebrow="From the family"
         title="What's moving across Kharis."
         intro="Series launches, KP2 updates, capital-campaign milestones and campus news — the things worth telling the whole family about."

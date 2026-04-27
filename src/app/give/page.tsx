@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/ui/page-header";
-import { bankDetails, site } from "@/lib/content";
+import { bankDetails, buildFund, onlineGiving, paypalGiving, site, textGiving } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Give",
@@ -13,6 +13,7 @@ export default function GivePage() {
   return (
     <>
       <PageHeader
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Give" }]}
         eyebrow="Partnering with the mission"
         title="Give as worship."
         intro="Giving tithes and offerings is a biblical principle and part of our worship. Choose the path that works for you — every gift supports the teaching, people and places of Kharis."
@@ -27,70 +28,153 @@ export default function GivePage() {
         </figure>
       </PageHeader>
 
-      <section className="container-x max-w-[1400px] mx-auto py-20 md:py-24">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-ink/10 border hairline">
+      <section aria-label="Ways to give" className="container-x max-w-[1400px] mx-auto pt-14 md:pt-16">
+        <ol className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-px bg-ink/10 border hairline">
           {[
             {
-              tag: "Most common",
+              n: "01",
               title: "Online · Tithe.ly",
-              body: "Choose a campus, set an amount, one-off or recurring. Secure card payments.",
-              cta: { label: "Give online", href: "https://tithe.ly" },
-              emphasis: true,
+              caption: "Most common · card payments",
+              href: "#online",
             },
             {
-              tag: "UK only",
+              n: "02",
               title: "Text giving",
-              body: "Fast, no account required. Available to UK mobile numbers.",
-              cta: { label: "See numbers", href: "#text" },
+              caption: "UK only · up to £20 per text",
+              href: "#text",
             },
             {
-              tag: "Best for regular giving",
+              n: "03",
               title: "Bank transfer",
-              body: "Standing order from your bank account — the lowest fees to the ministry.",
-              cta: { label: "Account details", href: "#bank" },
+              caption: "Best for regular giving",
+              href: "#bank",
+            },
+            {
+              n: "04",
+              title: "PayPal",
+              caption: "International friendly",
+              href: "#paypal",
+            },
+            {
+              n: "05",
+              title: "Build God A House",
+              caption: "Capital campaign",
+              href: "#capital-campaign",
             },
           ].map((m) => (
-            <div
-              key={m.title}
-              className={`p-8 md:p-10 flex flex-col justify-between min-h-[320px] ${
-                m.emphasis ? "bg-ink text-parchment-50" : "bg-parchment-50"
-              }`}
-            >
-              <div>
-                <span
-                  className={`text-[11px] uppercase tracking-[0.22em] ${
-                    m.emphasis ? "text-grace-light" : "text-grace-dark"
-                  }`}
-                >
-                  {m.tag}
-                </span>
-                <h3
-                  className={`mt-5 font-display text-3xl md:text-4xl leading-tight ${
-                    m.emphasis ? "text-parchment-50" : "text-ink"
-                  }`}
-                >
-                  {m.title}
-                </h3>
-                <p
-                  className={`mt-4 text-sm leading-relaxed ${
-                    m.emphasis ? "text-ink-300" : "text-ink-500"
-                  }`}
-                >
-                  {m.body}
-                </p>
-              </div>
+            <li key={m.n} className="bg-parchment-50 text-ink">
               <Link
-                href={m.cta.href}
-                className={`mt-8 inline-flex items-center gap-3 px-6 py-3 text-[13px] uppercase tracking-[0.16em] rounded-xs transition-colors ${
-                  m.emphasis
-                    ? "bg-grace-light text-ink hover:bg-parchment-50"
-                    : "bg-ink text-parchment-50 hover:bg-ink-700"
-                }`}
+                href={m.href}
+                className="group flex flex-col justify-between h-full p-6 md:p-7 min-h-[200px] hover:bg-ink hover:text-parchment-50 transition-colors"
               >
-                {m.cta.label} <span aria-hidden>→</span>
+                <span className="font-mono text-[11px] tracking-[0.18em] text-ink-500 group-hover:text-grace-light transition-colors">
+                  Nº {m.n}
+                </span>
+                <div>
+                  <h2 className="font-display text-2xl md:text-[1.65rem] leading-tight">
+                    {m.title}
+                  </h2>
+                  <p className="mt-3 text-[11px] uppercase tracking-[0.18em] text-ink-500 group-hover:text-grace-light transition-colors">
+                    {m.caption}
+                  </p>
+                </div>
               </Link>
-            </div>
+            </li>
           ))}
+        </ol>
+      </section>
+
+      <section id="online" className="bg-parchment-100 border-y hairline">
+        <div className="container-x max-w-[1400px] mx-auto py-20 md:py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div className="lg:col-span-5">
+              <span className="text-[11px] uppercase tracking-[0.22em] text-grace-dark">
+                Online · Tithe.ly · Most common
+              </span>
+            <h2 className="mt-4 font-display text-4xl md:text-5xl text-ink tracking-tight leading-[1.02]">
+              Give online.
+            </h2>
+            <p className="mt-6 text-ink-500 leading-relaxed max-w-md">
+              Choose your campus, set an amount, one-off or recurring — secure card payments through Tithe.ly. Branch selection happens on the form.
+            </p>
+          </div>
+
+          <div className="lg:col-span-7 border hairline bg-parchment-50 p-8 md:p-10">
+            <p className="font-display text-2xl md:text-3xl text-ink leading-snug">
+              Set up a one-time gift or a recurring partner schedule.
+            </p>
+            <p className="mt-4 text-sm text-ink-500 leading-relaxed max-w-xl">
+              You&rsquo;ll arrive on Tithe.ly&rsquo;s secure form. We never see your card details. Gift Aid can be added on the next page if you&rsquo;re a UK taxpayer.
+            </p>
+            <a
+              href={onlineGiving.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 inline-flex items-center gap-3 bg-ink text-parchment-50 px-7 py-4 text-[13px] uppercase tracking-[0.16em] rounded-xs hover:bg-ink-700 transition-colors"
+            >
+              Give online <span aria-hidden>→</span>
+            </a>
+          </div>
+        </div>
+        </div>
+      </section>
+
+      <section id="text" className="container-x max-w-[1400px] mx-auto py-20 md:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          <div className="lg:col-span-5">
+            <span className="text-[11px] uppercase tracking-[0.22em] text-grace-dark">
+              Text giving · UK only
+            </span>
+            <h2 className="mt-4 font-display text-4xl md:text-5xl text-ink tracking-tight leading-[1.02]">
+              Give in a single text.
+            </h2>
+            <p className="mt-6 text-ink-500 leading-relaxed max-w-md">
+              No app, no account. Send one SMS and the gift is added to your phone bill or deducted from your pay-as-you-go balance. Up to £{textGiving.maxAmountGBP} per text.
+            </p>
+          </div>
+
+          <div className="lg:col-span-7">
+            <ol className="grid grid-cols-1 md:grid-cols-3 gap-px bg-ink/10 border hairline">
+              <li className="bg-parchment-50 p-7 md:p-8">
+                <span className="font-display text-3xl text-grace-dark">01</span>
+                <p className="mt-5 text-[11px] uppercase tracking-[0.22em] text-ink-500">
+                  Compose a text
+                </p>
+                <p className="mt-2 font-display text-xl text-ink leading-snug">
+                  {textGiving.keywordPrefix}&nbsp;[amount]
+                </p>
+                <p className="mt-3 text-xs text-ink-500 leading-relaxed">
+                  e.g.{" "}
+                  <span className="font-mono text-ink">{textGiving.example}</span>{" "}
+                  to give £10.
+                </p>
+              </li>
+              <li className="bg-parchment-50 p-7 md:p-8">
+                <span className="font-display text-3xl text-grace-dark">02</span>
+                <p className="mt-5 text-[11px] uppercase tracking-[0.22em] text-ink-500">
+                  Send it to
+                </p>
+                <p className="mt-2 font-display text-3xl md:text-4xl text-ink tabular-nums">
+                  {textGiving.shortCode}
+                </p>
+                <p className="mt-3 text-xs text-ink-500 leading-relaxed">
+                  Standard rate · UK numbers only.
+                </p>
+              </li>
+              <li className="bg-parchment-50 p-7 md:p-8">
+                <span className="font-display text-3xl text-grace-dark">03</span>
+                <p className="mt-5 text-[11px] uppercase tracking-[0.22em] text-ink-500">
+                  Confirmation
+                </p>
+                <p className="mt-2 font-display text-xl text-ink leading-snug">
+                  You&rsquo;ll receive a reply.
+                </p>
+                <p className="mt-3 text-xs text-ink-500 leading-relaxed">
+                  Charges appear on your next phone bill.
+                </p>
+              </li>
+            </ol>
+          </div>
         </div>
       </section>
 
@@ -137,33 +221,43 @@ export default function GivePage() {
               ))}
             </dl>
           </div>
+        </div>
+      </section>
 
-          <div className="mt-12 border hairline bg-parchment-50 p-7 md:p-8 max-w-3xl">
-            <div className="flex items-center gap-3 mb-3">
-              <span className="text-[11px] uppercase tracking-[0.22em] text-grace-dark">
-                UK taxpayers
-              </span>
-              <span className="h-px flex-1 bg-ink/10" />
-            </div>
-            <p className="font-display text-xl md:text-2xl text-ink leading-snug">
-              Gift Aid adds 25p to every £1 you give — at no cost to you.
+      <section id="paypal" className="container-x max-w-[1400px] mx-auto py-20 md:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          <div className="lg:col-span-5">
+            <span className="text-[11px] uppercase tracking-[0.22em] text-grace-dark">
+              PayPal · International friendly
+            </span>
+            <h2 className="mt-4 font-display text-4xl md:text-5xl text-ink tracking-tight leading-[1.02]">
+              Give with PayPal.
+            </h2>
+            <p className="mt-6 text-ink-500 leading-relaxed max-w-md">
+              Use your PayPal balance, linked bank account or card. Convenient if you give from outside the UK or already use PayPal regularly.
             </p>
-            <p className="mt-3 text-sm text-ink-500 leading-relaxed">
-              If you pay UK income or capital gains tax, completing a Gift Aid
-              declaration lets us claim an extra 25% on your donation from HMRC. One
-              form covers all future gifts.
+          </div>
+
+          <div className="lg:col-span-7 border hairline bg-parchment-50 p-8 md:p-10">
+            <p className="font-display text-2xl md:text-3xl text-ink leading-snug">
+              One click to PayPal&rsquo;s secure donation form.
             </p>
-            <Link
-              href="/give/gift-aid"
-              className="mt-5 inline-flex text-[13px] uppercase tracking-[0.16em] text-ink border-b hairline pb-1 hover:border-grace-dark hover:text-grace-dark transition-colors"
+            <p className="mt-4 text-sm text-ink-500 leading-relaxed max-w-xl">
+              You&rsquo;ll arrive on PayPal&rsquo;s site to confirm the amount and complete the gift. We never see your card or bank details.
+            </p>
+            <a
+              href={paypalGiving.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 inline-flex items-center gap-3 bg-ink text-parchment-50 px-7 py-4 text-[13px] uppercase tracking-[0.16em] rounded-xs hover:bg-ink-700 transition-colors"
             >
-              Complete Gift Aid declaration →
-            </Link>
+              Give with PayPal <span aria-hidden>→</span>
+            </a>
           </div>
         </div>
       </section>
 
-      <section className="relative bg-ink text-parchment-50 overflow-hidden">
+      <section id="capital-campaign" className="relative bg-ink text-parchment-50 overflow-hidden">
         <div
           className="absolute inset-0 opacity-40"
           style={{
@@ -189,12 +283,14 @@ export default function GivePage() {
                 and refuge for every Kharis family across the nations.
               </p>
               <div className="mt-10 flex flex-wrap gap-5">
-                <Link
-                  href="/give/build-gods-house"
+                <a
+                  href={buildFund.donateUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-3 bg-grace-light text-ink px-7 py-4 text-[13px] uppercase tracking-[0.16em] rounded-xs hover:bg-parchment-50 transition-colors"
                 >
                   Partner with the vision <span aria-hidden>→</span>
-                </Link>
+                </a>
                 <Link
                   href="/about"
                   className="text-[13px] uppercase tracking-[0.16em] text-parchment-50 border-b border-parchment-50/30 pb-1 hover:border-grace-light transition-colors"
@@ -237,14 +333,6 @@ export default function GivePage() {
         </div>
       </section>
 
-      <section className="container-x max-w-[1400px] mx-auto py-16 md:py-20 text-sm text-ink-500 leading-relaxed">
-        <p>
-          {site.legalName} is a UK registered charity (no. {site.charityNumber}). All
-          online payments are processed by secure third-party providers; Kharis does
-          not store your card details. Questions about giving? Contact the finance team
-          through your local campus.
-        </p>
-      </section>
     </>
   );
 }
