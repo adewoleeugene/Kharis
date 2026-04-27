@@ -21,6 +21,7 @@ export type Campus = {
   campusLead?: { name: string; title: string };
   // Summary fields used by the explorer grid on /locations
   primaryService?: { day: string; time: string };
+  midweek?: { day: string; time: string };
   venueHint?: string;
 };
 
@@ -36,6 +37,7 @@ export const campuses: Campus[] = [
       "Gathering in Kensington and Walworth every week under the teaching of Rev. Dr. David Antwi — our flagship campus and the birthplace of the Kharis ministry.",
     campusLead: { name: "Rev. Dr. David Antwi", title: "Head Pastor & Founder" },
     primaryService: { day: "Sundays", time: "10:00" },
+    midweek: { day: "Thursdays", time: "19:00" },
     venueHint: "Kensington Town Hall · Ark Walworth Academy",
     services: [
       {
