@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  --color-parchment: #f6f1e7;
+  --color-parchment-50: #fbf8f1;
+  --color-parchment-100: #f6f1e7;
+  --color-parchment-200: #ece3d0;
+
+  --color-ink: #2b061d;
+  --color-ink-900: #180310;
+  --color-ink-700: #3f0b2a;
+  --color-ink-500: #6a5a60;
+  --color-ink-300: #b8a8ae;
+
+  --color-grace: #b8863b;
+  --color-grace-light: #d4a85a;
+  --color-grace-dark: #8a6328;
+
+  --color-sage: #2c4a3a;
+
+  --color-background: var(--color-parchment-50);
+  --color-foreground: var(--color-ink);
+
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-geist-sans);
+
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-parchment-50);
+  }
+
+  .font-display {
+    font-family: var(--font-display), ui-serif, Georgia, serif;
+    font-optical-sizing: auto;
+  }
+}
+
+@layer utilities {
+  .container-x {
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  .hairline {
+    border-color: color-mix(in srgb, var(--color-ink) 12%, transparent);
+  }
+
+  .grain {
+    background-image:
+      radial-gradient(color-mix(in srgb, var(--color-ink) 3%, transparent) 1px, transparent 1px);
+    background-size: 3px 3px;
+  }
+}
